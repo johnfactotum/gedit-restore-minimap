@@ -1,0 +1,9 @@
+[Plugin]
+Module=restore_minimap
+Loader=python3
+IAge=3
+Name=Restore Minimap
+Description=Restore minimap in gedit 3.36
+Authors=John Factotum
+Copyright=Copyright © 2020 John Factotum
+Website=https://github.com/johnfactotum/gedit-restore-minimap
