@@ -1,26 +1,22 @@
-from gi.repository import GObject, Gedit, GtkSource, Pango
+from gi.repository import GObject, Gedit, GtkSource, Gtk
 
-class RestoreMinimapPlugin(GObject.Object, Gedit.WindowActivatable):
+class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
 
-    window = GObject.property(type=Gedit.Window)
+    view = GObject.property(type=Gedit.View)
 
     def __init__(self):
         GObject.Object.__init__(self)
 
     def do_activate(self):
+        self.tab = self.view.get_parent().get_parent().get_parent()
+        self.tab.set_orientation(Gtk.Orientation.HORIZONTAL)
         self.source_map = GtkSource.Map()
+        self.source_map.set_view(self.view)
         self.source_map.show()
-        self.panel = self.window.get_side_panel()
-        self.panel.add_titled(self.source_map, 'minimap', 'Minimap')
-        self._update_view()
+        self.tab.pack_end(self.source_map, False, True, 0)
 
     def do_deactivate(self):
-        self.panel.remove(self.source_map)
+        self.tab.remove(self.source_map)
 
     def do_update_state(self):
-        self._update_view()
-
-    def _update_view(self):
-        view = self.window.get_active_view()
-        if view is not None:
-            self.source_map.set_view(view)
+        pass

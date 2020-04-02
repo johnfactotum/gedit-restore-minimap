@@ -20,9 +20,7 @@ git clone https://github.com/johnfactotum/gedit-restore-minimap.git restore-mini
 ```
 
 ## Known Issues
-* The minimap is now rendered in the side panel, which means:
-  * You can't use other side panels and the minimap at the same time.
-  * The minimap is displayed on the left, which can be odd.
+* The minimap is displayed on the left, which can be a bit odd.
 * It'd be nice if the minimap can use Gnome Builder's block font, but I couldn't figure out how.
 
 ## See also
