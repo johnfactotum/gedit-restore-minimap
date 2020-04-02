@@ -1,6 +1,6 @@
 # Restore Minimap (gedit plugin)
 
-![Screenshot](screenshot.jpg)
+![Screenshot](screenshot.png)
 
 ## Features
 
