@@ -7,11 +7,6 @@
 * Minimap (overview map) was removed in gedit 3.36
 * This plugin allows you to have minimap
 
-## Usage
-
-* Open the side panel by pressing F9, or click on the primary menu and choose "View", then check "Side Panel"
-* Click on the button on the top of the side panel, and choose "Minimap"
-
 ## Installation
 ```bash
 mkdir -p ~/.local/share/gedit/plugins/
