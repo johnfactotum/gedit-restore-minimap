@@ -17,6 +17,3 @@ class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
 
     def do_deactivate(self):
         self.tab.remove(self.source_map)
-
-    def do_update_state(self):
-        pass
