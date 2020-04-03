@@ -25,6 +25,7 @@ self.tab.set_direction(Gtk.TextDirection.RTL)
 ```
 
 ## Known Issues
+* It breaks when an info bar is displayed
 * It'd be nice if the minimap can use Gnome Builder's block font without having to install it, but I couldn't figure out how
 * There's currently no way to configure the minimap except editing the source code
 
