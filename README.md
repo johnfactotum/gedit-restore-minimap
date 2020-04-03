@@ -14,6 +14,8 @@ cd ~/.local/share/gedit/plugins/
 git clone https://github.com/johnfactotum/gedit-restore-minimap.git restore-minimap
 ```
 
+To use Gnome Builder's block font, which makes the minimap looks so much better that I wonder why they haven't bundled the font with gtksourceview itself, copy `BuilderBlocks.ttf` to `~/.local/share/fonts`.
+
 ## Configuration
 
 You can display the minimap on the left by deleting line 15 in `restore_minimap.py`:
@@ -23,7 +25,7 @@ self.tab.set_direction(Gtk.TextDirection.RTL)
 ```
 
 ## Known Issues
-* It'd be nice if the minimap can use Gnome Builder's block font, but I couldn't figure out how
+* It'd be nice if the minimap can use Gnome Builder's block font without having to install it, but I couldn't figure out how
 * There's currently no way to configure the minimap except editing the source code
 
 ## See also

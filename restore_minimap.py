@@ -1,4 +1,4 @@
-from gi.repository import GObject, Gedit, GtkSource, Gtk
+from gi.repository import GObject, Gedit, GtkSource, Gtk, Pango
 
 class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
 
@@ -20,6 +20,7 @@ class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
 
         self.source_map = GtkSource.Map()
         self.source_map.set_view(self.view)
+        self.source_map.set_property('font-desc', Pango.FontDescription('BuilderBlocks 1'))
         self.source_map.show()
 
         sep = Gtk.Separator()
