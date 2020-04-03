@@ -14,9 +14,17 @@ cd ~/.local/share/gedit/plugins/
 git clone https://github.com/johnfactotum/gedit-restore-minimap.git restore-minimap
 ```
 
+## Configuration
+
+You can display the minimap on the left by deleting line 15 in `restore_minimap.py`:
+```python
+# move the minimap to the right
+self.tab.set_direction(Gtk.TextDirection.RTL)
+```
+
 ## Known Issues
-* The minimap is displayed on the left, which can be a bit odd.
-* It'd be nice if the minimap can use Gnome Builder's block font, but I couldn't figure out how.
+* It'd be nice if the minimap can use Gnome Builder's block font, but I couldn't figure out how
+* There's currently no way to configure the minimap except editing the source code
 
 ## See also
 * [Restore Overlay Scrolling](https://github.com/johnfactotum/gedit-restore-overlay-scrolling) - plugin for restoring overlay scrolling, which was also removed in gedit 3.36
