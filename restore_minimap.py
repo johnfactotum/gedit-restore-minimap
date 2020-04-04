@@ -23,12 +23,13 @@ class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
         self.source_map.set_property('font-desc', Pango.FontDescription('BuilderBlocks 1'))
         self.source_map.show()
 
-        sep = Gtk.Separator()
-        sep.show()
-        self.tab.pack_end(sep, False, True, 0)
+        self.sep = Gtk.Separator()
+        self.sep.show()
+        self.tab.pack_end(self.sep, False, True, 0)
         self.tab.pack_end(self.source_map, False, True, 0)
 
     def do_deactivate(self):
         self.tab.remove(self.source_map)
+        self.tab.remove(self.sep)
         self.tab.set_orientation(Gtk.Orientation.VERTICAL)
         self.scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
