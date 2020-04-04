@@ -30,4 +30,5 @@ class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
 
     def do_deactivate(self):
         self.tab.remove(self.source_map)
+        self.tab.set_orientation(Gtk.Orientation.VERTICAL)
         self.scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
