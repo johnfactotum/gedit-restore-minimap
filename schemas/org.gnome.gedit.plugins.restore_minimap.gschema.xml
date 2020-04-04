@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema id="org.gnome.gedit.plugins.restore_minimap">
+        <key name="display-on-left" type="b">
+            <default>false</default>
+            <summary>Display on the left</summary>
+            <description>If true, the minimap appears on the left side of editors, otherwise it appears on the right side</description>
+        </key>
+    </schema>
+</schemalist>
