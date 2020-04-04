@@ -6,5 +6,10 @@
             <summary>Display on the left</summary>
             <description>If true, the minimap appears on the left side of editors, otherwise it appears on the right side</description>
         </key>
+        <key name="show-separator" type="b">
+            <default>true</default>
+            <summary>Show separator</summary>
+            <description>If true, a separator is shown betwwen the minimap and the view</description>
+        </key>
     </schema>
 </schemalist>

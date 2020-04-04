@@ -31,9 +31,15 @@ class RestoreMinimapPluginPreferences(GObject.Object, Gedit.WindowActivatable, P
             return Gtk.Label(label='Error: could not load settings schema')
 
         check = Gtk.CheckButton.new_with_label('Display minimap on the left side')
+        check2 = Gtk.CheckButton.new_with_label('Show separator')
         flag = Gio.SettingsBindFlags.DEFAULT
         settings.bind('display-on-left', check, 'active', flag)
-        return check
+        settings.bind('show-separator', check2, 'active', flag)
+
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, border_width=10)
+        box.pack_start(check, False, True, 0)
+        box.pack_start(check2, False, True, 0)
+        return box
 
 class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
 
@@ -59,14 +65,16 @@ class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
         self.tab.hide()
         self.tab.show()
 
+    def on_separator_changed(self, *args):
+        show_separator = True
+        if settings is not None:
+            show_separator = settings.get_boolean('show-separator')
+        if show_separator: self.sep.show()
+        else: self.sep.hide()
+
     def do_activate(self):
         self.tab = self.view.get_parent().get_parent().get_parent()
         self.tab.set_orientation(Gtk.Orientation.HORIZONTAL)
-
-        self.update_display_on_left()
-        if settings is not None:
-            self.settings_handler = settings.connect(
-                'changed::display-on-left', self.on_display_on_left_changed)
 
         # hide vertical scrollbar
         self.scrolled = self.view.get_parent()
@@ -78,9 +86,16 @@ class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
         self.source_map.show()
 
         self.sep = Gtk.Separator()
-        self.sep.show()
         self.tab.pack_end(self.sep, False, True, 0)
         self.tab.pack_end(self.source_map, False, True, 0)
+
+        self.update_display_on_left()
+        self.on_separator_changed()
+        if settings is not None:
+            self.settings_handlers = [
+                settings.connect('changed::display-on-left', self.on_display_on_left_changed),
+                settings.connect('changed::show-separator', self.on_separator_changed)
+            ]
 
     def do_deactivate(self):
         self.tab.remove(self.source_map)
@@ -88,4 +103,5 @@ class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
         self.tab.set_orientation(Gtk.Orientation.VERTICAL)
         self.scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         if settings is not None:
-            settings.disconnect(self.settings_handler)
+            for handler in self.settings_handlers:
+                settings.disconnect(handler)
