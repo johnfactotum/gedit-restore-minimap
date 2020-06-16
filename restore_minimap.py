@@ -72,6 +72,28 @@ class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
         if show_separator: self.sep.show()
         else: self.sep.hide()
 
+    def set_font_desc(self):
+        if not self.source_map: return
+
+        default_font = 'Monospace 1'
+        try:
+            editor_schema = 'org.gnome.gedit.preferences.editor'
+            editor_settings = Gio.Settings.new(editor_schema)
+            use_default_font = editor_settings.get_boolean('use-default-font')
+            if use_default_font:
+                desktop_schema = 'org.gnome.desktop.interface'
+                desktop_settings = Gio.Settings.new(desktop_schema)
+                default_font = desktop_settings.get_string('monospace-font-name')
+            else:
+                default_font = editor_settings.get_string('editor-font')
+        except:
+            pass
+
+        desc = Pango.FontDescription(default_font)
+        desc.set_size(Pango.SCALE) # set size to 1pt
+        desc.set_family('BuilderBlocks,' + desc.get_family())
+        self.source_map.set_property('font-desc', desc)
+
     def do_activate(self):
         self.tab = self.view.get_parent().get_parent().get_parent()
         self.tab.set_orientation(Gtk.Orientation.HORIZONTAL)
@@ -81,8 +103,8 @@ class RestoreMinimapPlugin(GObject.Object, Gedit.ViewActivatable):
         self.scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.EXTERNAL)
 
         self.source_map = GtkSource.Map()
+        self.set_font_desc()
         self.source_map.set_view(self.view)
-        self.source_map.set_property('font-desc', Pango.FontDescription('BuilderBlocks 1'))
         self.source_map.show()
 
         self.sep = Gtk.Separator()
